@@ -4,6 +4,8 @@ import {
   VSnackbar,
   VDatePicker,
   VMenu,
+  VForm,
+  VCombobox,
   VDialog,
   VTextField,
   VCard,
@@ -24,6 +26,8 @@ Vue.use(Vuetify, {
   components: {
     VDialog,
     VSnackbar,
+    VForm,
+    VCombobox,
     VDatePicker,
     VMenu,
     VTextField,

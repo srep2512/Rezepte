@@ -1,18 +1,31 @@
 <template>  
     <v-dialog
-      v-model="mydialog"
-      max-width="290"
+      v-model="mydialog"      
     >
       <v-card>
-        <v-card-title class="headline">Wie Beliebt ist das Gericht?</v-card-title>
+        <v-card-title class="headline">Detailansicht der Rezepte</v-card-title>
 
-        <v-card-text>
-          Das Gericht {{Statistik.Name}} wurde bereits {{Statistik.Anzahl}} verspeist
-        </v-card-text>
+        <v-data-table
+          :headers="headers"
+          :items="Rezepte"
+          hide-actions
+          :loading=loadRezept
+          class="elevation-1"
+        >
+          <template slot="items" slot-scope="props">           
+            <tr v-bind:class="{'status': props.item.Status ==='NEW'}">  
+              <td>{{ props.item.Name }}</td> 
+              <td class="text-xs-right">{{props.item.Datum }}</td>   
+              <td class="text-xs-right">{{props.item.Bewertung }}</td> 
+              <v-btn @click="showDetails(props.item)">Details</v-btn>
+              <v-btn @click=showStats(props.item)>Statistiken</v-btn>
+            </tr>
+          </template>
+        </v-data-table> 
+        
 
         <v-card-actions>
           <v-spacer></v-spacer>
-
           <v-btn
             color="green darken-1"
             flat="flat"
@@ -28,11 +41,20 @@
 <script>
   export default {
     props:{
-     dialog: false
+     dialog: false,
+     loading:true
     },
     data(){
         return{
-            mydialog:this.dialog
+            mydialog:this.dialog,
+            loadRezept:this.loading,
+            Rezepte:[],
+            headers:[
+              { text: 'Name', value: 'Name' },
+              { text: 'Erstellungdatum', value: 'Datum' } ,
+              { text: 'Bewertung', value: 'Bewertung' } ,
+              { text: 'Menu' }          
+            ]          
         }
     },
     methods:{
@@ -42,13 +64,16 @@
         }
     },
     computed:{
-      Statistik(){
+      Statistik(){        
         return this.$store.getters['Statistik/getStatistik']
       }
     },
     watch:{
         dialog: function(newVal,oldVal){
             this.mydialog = newVal
+        },
+        loading: function(newVal,oldVal){
+            this.loadRezept = newVal
         }
     }
   }
