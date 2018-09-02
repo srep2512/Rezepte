@@ -1,7 +1,21 @@
-# Vuetify + Vue CLI 3.0 + Vuex
+# tableapp
 
-Dieses kleine Beispiel diente des Tests zur Nutzung von Vuetify Componenten
+## Project setup
+```
+npm install
+```
 
-Die Demo wurde auf Heroku veröffentlicht.
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-https://rezepteforfree.herokuapp.com/
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
